@@ -1,0 +1,36 @@
+.AuthForm {
+	h3 {
+		margin: 0;
+		color: #505050;
+		margin-bottom: 1rem;
+	}
+
+	input {
+		font-size: 1rem;
+		border: none;
+		border-bottom: 1px solid #b1b1b1;
+		padding-bottom: 0.5rem;
+		outline: none;
+		width: 100%;
+		&:focus {
+			color: #505050;
+			border-bottom: 1px solid #505050;
+		}
+	}
+
+	input + input {
+		margin-top: 1rem;
+	}
+
+	.footer {
+		margin-top: 2rem;
+		text-align: right;
+		a {
+			color: #b1b1b1;
+			text-decoration: underline;
+			&:hover {
+				color: #505050;
+			}
+		}
+	}
+}

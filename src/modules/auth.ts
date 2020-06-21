@@ -1,16 +1,61 @@
-import { createAction, handleActions } from 'redux-actions';
+import { createAction, createReducer, ActionType } from 'typesafe-actions';
 
-const SAMPLE_ACTION = 'auth/SAMPLE_ACTION';
+type FormType = 'register' | 'login';
 
-export const sampleAction = createAction(SAMPLE_ACTION);
+interface ChangeFieldInput {
+	form: FormType;
+	key: string;
+	value: string;
+}
 
-const initialState = {};
+interface AuthState {
+	register: {
+		username: string;
+		password: string;
+		passwordConfirm: string;
+	};
+	login: {
+		username: string;
+		password: string;
+	};
+}
 
-const auth = handleActions(
-	{
-		[SAMPLE_ACTION]: (state, action) => state,
+const CHANGE_FIELD = 'auth/CHANGE_FIELD';
+const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
+
+export const changeField = createAction(
+	CHANGE_FIELD,
+	({ form, key, value }: ChangeFieldInput) => ({ form, key, value }),
+)();
+
+export const initializeForm = createAction(
+	INITIALIZE_FORM,
+	(form: FormType) => form,
+)();
+
+const actions = { changeField, initializeForm };
+type AuthAction = ActionType<typeof actions>;
+
+const initialState = {
+	register: {
+		username: '',
+		password: '',
+		passwordConfirm: '',
 	},
-	initialState,
-);
+	login: {
+		username: '',
+		password: '',
+	},
+};
+
+const auth = createReducer<AuthState, AuthAction>(initialState)
+	.handleAction(changeField, (state, { payload: { form, key, value } }) => ({
+		...state,
+		[form]: { ...state[form], [key]: value },
+	}))
+	.handleAction(initializeForm, (state, { payload: form }) => ({
+		...state,
+		[form]: initialState[form],
+	}));
 
 export default auth;

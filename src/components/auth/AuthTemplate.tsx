@@ -11,7 +11,7 @@ export default function AuthTemplate({ children }: Props): ReactElement {
 		<div className="AuthTemplate">
 			<div className="white-box">
 				<div className="logo-area">
-					<Link to="/">Goonerholic</Link>
+					<Link to="/">GOONERHOLIC</Link>
 				</div>
 				{children}
 			</div>

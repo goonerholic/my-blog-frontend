@@ -1,10 +1,10 @@
 import client from './client';
 import { AxiosResponse } from 'axios';
 
-interface FormInput {
-	username: string;
-	password: string;
-}
+// interface FormInput {
+// 	username: string;
+// 	password: string;
+// }
 
 export interface UserInfo {
 	_id: string;

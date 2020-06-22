@@ -1,10 +1,6 @@
 import { createAction, createReducer, ActionType } from 'typesafe-actions';
-import { takeLatest } from 'redux-saga/effects';
-
-import createRequestSaga, {
-	createRequestActionTypes,
-} from '../lib/createRequestSaga';
-import * as authAPI from '../lib/api/auth';
+import { transformToArray, createAsyncReducer } from './../lib/reducerUtils';
+import { authRegisterAction, authLoginAction } from './authAsync/actions';
 
 type FormType = 'register' | 'login';
 
@@ -29,12 +25,14 @@ interface AuthState {
 		username: string;
 		password: string;
 	};
+	auth: {
+		_id: string;
+		username: string;
+	} | null;
 }
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
-
-const registerAsyncAction = 
 
 export const changeField = createAction(
 	CHANGE_FIELD,
@@ -46,11 +44,13 @@ export const initializeForm = createAction(
 	(form: FormType) => form,
 )();
 
-const actions = { changeField, initializeForm };
+const actions = {
+	changeField,
+	initializeForm,
+	authRegisterAction,
+	authLoginAction,
+};
 type AuthAction = ActionType<typeof actions>;
-
-const registerSaga = createRequestSaga(REGISTER, authAPI.register);
-const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 
 const initialState = {
 	register: {
@@ -63,7 +63,6 @@ const initialState = {
 		password: '',
 	},
 	auth: null,
-	authError: null,
 };
 
 const auth = createReducer<AuthState, AuthAction>(initialState)
@@ -75,6 +74,13 @@ const auth = createReducer<AuthState, AuthAction>(initialState)
 		...state,
 		[form]: initialState[form],
 	}))
-	.handleAction();
+	.handleAction(
+		transformToArray(authRegisterAction),
+		createAsyncReducer(authRegisterAction, 'auth'),
+	)
+	.handleAction(
+		transformToArray(authLoginAction),
+		createAsyncReducer(authLoginAction, 'auth'),
+	);
 
 export default auth;

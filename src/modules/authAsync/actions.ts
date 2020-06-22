@@ -16,10 +16,10 @@ export const authRegisterAction = createAsyncAction(
 	REGISTER,
 	REGISTER_SUCCESS,
 	REGISTER_FAILURE,
-)<string, UserInfo, AxiosError>();
+)<string, any, AxiosError>();
 
 export const authLoginAction = createAsyncAction(
 	LOGIN,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
-)<string, UserInfo, AxiosError>();
+)<string, any, AxiosError>();

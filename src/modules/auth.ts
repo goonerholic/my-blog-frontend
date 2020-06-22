@@ -1,6 +1,17 @@
 import { createAction, createReducer, ActionType } from 'typesafe-actions';
+import { takeLatest } from 'redux-saga/effects';
+
+import createRequestSaga, {
+	createRequestActionTypes,
+} from '../lib/createRequestSaga';
+import * as authAPI from '../lib/api/auth';
 
 type FormType = 'register' | 'login';
+
+interface UserInfo {
+	_id: string;
+	username: string;
+}
 
 interface ChangeFieldInput {
 	form: FormType;
@@ -23,6 +34,8 @@ interface AuthState {
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
+const registerAsyncAction = 
+
 export const changeField = createAction(
 	CHANGE_FIELD,
 	({ form, key, value }: ChangeFieldInput) => ({ form, key, value }),
@@ -36,6 +49,9 @@ export const initializeForm = createAction(
 const actions = { changeField, initializeForm };
 type AuthAction = ActionType<typeof actions>;
 
+const registerSaga = createRequestSaga(REGISTER, authAPI.register);
+const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+
 const initialState = {
 	register: {
 		username: '',
@@ -46,6 +62,8 @@ const initialState = {
 		username: '',
 		password: '',
 	},
+	auth: null,
+	authError: null,
 };
 
 const auth = createReducer<AuthState, AuthAction>(initialState)
@@ -56,6 +74,7 @@ const auth = createReducer<AuthState, AuthAction>(initialState)
 	.handleAction(initializeForm, (state, { payload: form }) => ({
 		...state,
 		[form]: initialState[form],
-	}));
+	}))
+	.handleAction();
 
 export default auth;

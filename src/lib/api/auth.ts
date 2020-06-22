@@ -1,18 +1,26 @@
 import client from './client';
+import { AxiosResponse } from 'axios';
 
 interface FormInput {
 	username: string;
 	password: string;
 }
 
-export function login({ username, password }: FormInput) {
-	client.post('/api/auth/login', { username, password });
+export interface UserInfo {
+	_id: string;
+	username: string;
 }
 
-export function register({ username, password }: FormInput) {
-	client.post('/api/auth/register', { username, password });
+export async function login<FormInput, UserInfo>(payload: FormInput) {
+	const response = await client.post<UserInfo>('/api/auth/login', payload);
+	return response.data;
 }
 
-export function check() {
-	client.get('/api/auth/check');
+export async function register<FormInput, UserInfo>(payload: FormInput) {
+	const response = await client.post<UserInfo>('/api/auth/register', payload);
+	return response.data;
+}
+
+export function check(): Promise<AxiosResponse<UserInfo>> {
+	return client.get<UserInfo>('/api/auth/check');
 }

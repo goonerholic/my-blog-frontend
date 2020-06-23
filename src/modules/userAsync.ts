@@ -14,9 +14,9 @@ import {
 
 const prefix = 'user';
 
-export const CHECK = `${prefix}_CHECK`;
-export const CHECK_SUCCESS = `${prefix}_CHECK_SUCCESS`;
-export const CHECK_FAILURE = `${prefix}_CHECK_FAILURE`;
+const CHECK = `${prefix}_CHECK`;
+const CHECK_SUCCESS = `${prefix}_CHECK_SUCCESS`;
+const CHECK_FAILURE = `${prefix}_CHECK_FAILURE`;
 
 export const userCheckAction = createAsyncAction(
 	CHECK,

@@ -1,7 +1,10 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../common/Button';
+import { Button, TextInput } from 'react-materialize';
+//import Button from '../common/Button';
 import './AuthForm.scss';
+import 'materialize-css';
+import 'materialize-css/dist/css/materialize.min.css';
 
 interface Props {
 	type: 'login' | 'register';
@@ -28,17 +31,15 @@ export default function AuthForm({
 	const text = textMap[type];
 	return (
 		<div className="AuthForm">
-			<h3>{text}</h3>
+			<h5>{text}</h5>
 			<form onSubmit={onSubmit}>
-				<input
-					autoComplete="username"
+				<TextInput
 					name="username"
 					placeholder="ID"
 					onChange={onChange}
 					value={form.username}
 				/>
-				<input
-					autoComplete="new-password"
+				<TextInput
 					name="password"
 					placeholder="PASSWORD"
 					type="password"
@@ -46,8 +47,7 @@ export default function AuthForm({
 					value={form.password}
 				/>
 				{type === 'register' && (
-					<input
-						autoComplete="new-password"
+					<TextInput
 						name="passwordConfirm"
 						placeholder="CONFIRM PASSWORD"
 						type="password"
@@ -55,7 +55,7 @@ export default function AuthForm({
 						value={form.passwordConfirm}
 					/>
 				)}
-				<Button color="blue" size="full">
+				<Button node="button" waves="light">
 					{text}
 				</Button>
 			</form>

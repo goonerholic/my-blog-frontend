@@ -1,5 +1,4 @@
 import client from './client';
-import { AxiosResponse } from 'axios';
 
 // interface FormInput {
 // 	username: string;

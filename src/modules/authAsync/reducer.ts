@@ -16,16 +16,18 @@ const initialState: AuthState = {
 	auth: asyncState.initial(),
 };
 
-const authAsync = createReducer<
+export const authRegister = createReducer<
 	AuthState,
 	ActionType<typeof authRegisterAction>
 >(initialState).handleAction(
 	transformToArray(authRegisterAction),
 	createAsyncReducer(authRegisterAction, 'auth'),
 );
-// .handleAction(
-// 	transformToArray(authLoginAction),
-// 	createAsyncReducer(authLoginAction, 'userProfile'),
-// );
 
-export default authAsync;
+export const authLogin = createReducer<
+	AuthState,
+	ActionType<typeof authLoginAction>
+>(initialState).handleAction(
+	transformToArray(authLoginAction),
+	createAsyncReducer(authLoginAction, 'auth'),
+);

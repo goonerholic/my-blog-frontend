@@ -1,22 +1,18 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm } from '../../modules/auth';
+import { changeField, initializeForm } from '../../modules/authForm';
 import AuthForm from '../../components/auth/AuthForm';
 import { RootState } from '../../modules';
 import { authRegisterAction } from '../../modules/authAsync/actions';
-import { check } from '../../lib/api/auth';
 import { userCheckAction } from '../../modules/userAsync';
 import { withRouter } from 'react-router-dom';
 
-interface RegisterFormProps {
-	history: any;
-}
-
 export default withRouter(function RegisterForm({ history }): ReactElement {
 	const dispatch = useDispatch();
-	const { form, auth } = useSelector((state: RootState) => ({
-		form: state.auth.register,
-		auth: state.authAsync.auth,
+	const { form, auth, user } = useSelector((state: RootState) => ({
+		form: state.authForm.register,
+		auth: state.authRegister.auth,
+		user: state.user.userProfile,
 	}));
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,10 +48,10 @@ export default withRouter(function RegisterForm({ history }): ReactElement {
 	}, [dispatch, auth]);
 
 	useEffect(() => {
-		if (auth.data) {
+		if (user.data) {
 			history.push('/');
 		}
-	}, [history, auth.data]);
+	}, [history, user]);
 	return (
 		<AuthForm
 			type="register"

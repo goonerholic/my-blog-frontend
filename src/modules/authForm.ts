@@ -1,5 +1,4 @@
 import { createAction, createReducer, ActionType } from 'typesafe-actions';
-import { authRegisterAction, authLoginAction } from './authAsync/actions';
 
 // types
 type FormType = 'register' | 'login';
@@ -55,7 +54,7 @@ const initialState = {
 	},
 };
 
-const auth = createReducer<AuthState, AuthAction>(initialState)
+const authForm = createReducer<AuthState, AuthAction>(initialState)
 	.handleAction(changeField, (state, { payload: { form, key, value } }) => ({
 		...state,
 		[form]: { ...state[form], [key]: value },
@@ -65,4 +64,4 @@ const auth = createReducer<AuthState, AuthAction>(initialState)
 		[form]: initialState[form],
 	}));
 
-export default auth;
+export default authForm;

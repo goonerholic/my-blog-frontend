@@ -1,4 +1,4 @@
-import { createAsyncAction, AsyncActionCreatorBuilder } from 'typesafe-actions';
+import { createAsyncAction } from 'typesafe-actions';
 import { UserInfo } from '../lib/api/auth';
 import { AxiosError } from 'axios';
 import * as authAPI from '../lib/api/auth';
@@ -44,9 +44,5 @@ const user = createReducer<UserState, ActionType<typeof userCheckAction>>(
 	transformToArray(userCheckAction),
 	createAsyncReducer(userCheckAction, 'userProfile'),
 );
-// .handleAction(
-// 	transformToArray(authLoginAction),
-// 	createAsyncReducer(authLoginAction, 'userProfile'),
-// );
 
 export default user;

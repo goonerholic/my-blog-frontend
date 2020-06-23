@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm } from '../../modules/authForm';
 import { authLoginAction } from '../../modules/authAsync/actions';
@@ -8,6 +8,7 @@ import { userCheckAction } from '../../modules/userAsync';
 import { withRouter } from 'react-router-dom';
 
 export default withRouter(function LoginForm({ history }): ReactElement {
+	const [error, setError] = useState<null | string>(null);
 	const dispatch = useDispatch();
 	const { form, auth, user } = useSelector((state: RootState) => ({
 		form: state.authForm.login,
@@ -35,7 +36,7 @@ export default withRouter(function LoginForm({ history }): ReactElement {
 		if (auth.error) {
 			console.log('오류');
 			console.log(auth.error);
-			return;
+			setError('로그인 실패');
 		}
 		if (auth.data) {
 			console.log('로그인 성공');
@@ -55,6 +56,7 @@ export default withRouter(function LoginForm({ history }): ReactElement {
 			form={form}
 			onChange={onChange}
 			onSubmit={onSubmit}
+			error={error}
 		/>
 	);
 });

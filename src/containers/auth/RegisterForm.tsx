@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm } from '../../modules/authForm';
 import AuthForm from '../../components/auth/AuthForm';
@@ -8,6 +8,7 @@ import { userCheckAction } from '../../modules/userAsync';
 import { withRouter } from 'react-router-dom';
 
 export default withRouter(function RegisterForm({ history }): ReactElement {
+	const [error, setError] = useState<string | null>(null);
 	const dispatch = useDispatch();
 	const { form, auth, user } = useSelector((state: RootState) => ({
 		form: state.authForm.register,
@@ -25,6 +26,7 @@ export default withRouter(function RegisterForm({ history }): ReactElement {
 		const { username, password, passwordConfirm } = form;
 		if (password !== passwordConfirm) {
 			// some error handling code
+			setError('비밀번호가 일치하지 않습니다.');
 			return;
 		}
 		dispatch(authRegisterAction.request({ username, password }));
@@ -38,6 +40,7 @@ export default withRouter(function RegisterForm({ history }): ReactElement {
 		if (auth.error) {
 			console.log('오류');
 			console.log(auth.error);
+			setError('회원가입 실패');
 			return;
 		}
 		if (auth.data) {
@@ -58,6 +61,7 @@ export default withRouter(function RegisterForm({ history }): ReactElement {
 			form={form}
 			onChange={onChange}
 			onSubmit={onSubmit}
+			error={error}
 		/>
 	);
 });

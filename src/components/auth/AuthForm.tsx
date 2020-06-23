@@ -12,6 +12,11 @@ interface Props {
 	};
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+	error: string | null;
+}
+
+interface ErrorMessageProps {
+	children: string | null;
 }
 
 const textMap = {
@@ -19,11 +24,16 @@ const textMap = {
 	register: 'SIGN UP',
 };
 
+function ErrorMessage({ children }: ErrorMessageProps): ReactElement {
+	return <div className="ErrorMessage">{children}</div>;
+}
+
 export default function AuthForm({
 	type,
 	form,
 	onChange,
 	onSubmit,
+	error,
 }: Props): ReactElement {
 	const text = textMap[type];
 	return (
@@ -55,6 +65,7 @@ export default function AuthForm({
 						value={form.passwordConfirm}
 					/>
 				)}
+				<ErrorMessage>{error}</ErrorMessage>
 				<Button color="blue" size="full">
 					{text}
 				</Button>

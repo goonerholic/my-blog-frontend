@@ -21,6 +21,7 @@ export async function register<FormInput, UserInfo>(payload: FormInput) {
 	return response.data;
 }
 
-export function check(): Promise<AxiosResponse<UserInfo>> {
-	return client.get<UserInfo>('/api/auth/check');
+export async function check<UserInfo>() {
+	const response = await client.get<UserInfo>('/api/auth/check');
+	return response.data;
 }

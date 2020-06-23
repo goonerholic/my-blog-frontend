@@ -1,13 +1,8 @@
 import { createAction, createReducer, ActionType } from 'typesafe-actions';
-import { transformToArray, createAsyncReducer } from './../lib/reducerUtils';
 import { authRegisterAction, authLoginAction } from './authAsync/actions';
 
+// types
 type FormType = 'register' | 'login';
-
-interface UserInfo {
-	_id: string;
-	username: string;
-}
 
 interface ChangeFieldInput {
 	form: FormType;
@@ -25,15 +20,13 @@ interface AuthState {
 		username: string;
 		password: string;
 	};
-	auth: {
-		_id: string;
-		username: string;
-	} | null;
 }
 
+//actions
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
+//action creators
 export const changeField = createAction(
 	CHANGE_FIELD,
 	({ form, key, value }: ChangeFieldInput) => ({ form, key, value }),
@@ -47,8 +40,6 @@ export const initializeForm = createAction(
 const actions = {
 	changeField,
 	initializeForm,
-	authRegisterAction,
-	authLoginAction,
 };
 type AuthAction = ActionType<typeof actions>;
 
@@ -62,7 +53,6 @@ const initialState = {
 		username: '',
 		password: '',
 	},
-	auth: null,
 };
 
 const auth = createReducer<AuthState, AuthAction>(initialState)
@@ -73,14 +63,6 @@ const auth = createReducer<AuthState, AuthAction>(initialState)
 	.handleAction(initializeForm, (state, { payload: form }) => ({
 		...state,
 		[form]: initialState[form],
-	}))
-	.handleAction(
-		transformToArray(authRegisterAction),
-		createAsyncReducer(authRegisterAction, 'auth'),
-	)
-	.handleAction(
-		transformToArray(authLoginAction),
-		createAsyncReducer(authLoginAction, 'auth'),
-	);
+	}));
 
 export default auth;

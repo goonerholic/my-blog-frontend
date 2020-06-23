@@ -1,5 +1,5 @@
 import { UserInfo } from '../../lib/api/auth';
-import { authRegisterAction } from './actions';
+import { authRegisterAction, authLoginAction } from './actions';
 import { createReducer, ActionType } from 'typesafe-actions';
 import {
 	transformToArray,
@@ -8,20 +8,24 @@ import {
 	AsyncState,
 } from '../../lib/reducerUtils';
 
-type UserState = {
-	userProfile: AsyncState<UserInfo, Error>;
+type AuthState = {
+	auth: AsyncState<UserInfo, Error>;
 };
 
-const initialState: UserState = {
-	userProfile: asyncState.initial(),
+const initialState: AuthState = {
+	auth: asyncState.initial(),
 };
 
-const registerSaga = createReducer<
-	UserState,
+const authAsync = createReducer<
+	AuthState,
 	ActionType<typeof authRegisterAction>
 >(initialState).handleAction(
 	transformToArray(authRegisterAction),
-	createAsyncReducer(authRegisterAction, 'userProfile'),
+	createAsyncReducer(authRegisterAction, 'auth'),
 );
+// .handleAction(
+// 	transformToArray(authLoginAction),
+// 	createAsyncReducer(authLoginAction, 'userProfile'),
+// );
 
-export default registerSaga;
+export default authAsync;

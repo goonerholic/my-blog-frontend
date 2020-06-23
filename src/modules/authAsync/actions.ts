@@ -1,5 +1,4 @@
 import { createAsyncAction } from 'typesafe-actions';
-import { UserInfo } from '../../lib/api/auth';
 import { AxiosError } from 'axios';
 
 const prefix = 'auth';
@@ -12,14 +11,19 @@ export const LOGIN = `${prefix}_LOGIN`;
 export const LOGIN_SUCCESS = `${prefix}_LOGIN_SUCCESS`;
 export const LOGIN_FAILURE = `${prefix}_LOGIN_FAILURE`;
 
+type AuthInput = {
+	username: string;
+	password: string;
+};
+
 export const authRegisterAction = createAsyncAction(
 	REGISTER,
 	REGISTER_SUCCESS,
 	REGISTER_FAILURE,
-)<string, any, AxiosError>();
+)<AuthInput, any, AxiosError>();
 
 export const authLoginAction = createAsyncAction(
 	LOGIN,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
-)<string, any, AxiosError>();
+)<AuthInput, any, AxiosError>();

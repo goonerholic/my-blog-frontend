@@ -6,12 +6,14 @@ import {
 } from './actions';
 import * as authAPI from '../../lib/api/auth';
 import createAsyncSaga from '../../lib/createRequestSaga';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, all } from 'redux-saga/effects';
 
 const authRegisterSaga = createAsyncSaga(authRegisterAction, authAPI.register);
 const authLoginSaga = createAsyncSaga(authLoginAction, authAPI.login);
 
 export function* authSaga() {
-	yield takeLatest(REGISTER, authRegisterSaga);
-	yield takeLatest(LOGIN, authLoginSaga);
+	yield all([
+		takeLatest(REGISTER, authRegisterSaga),
+		takeLatest(LOGIN, authLoginSaga),
+	]);
 }

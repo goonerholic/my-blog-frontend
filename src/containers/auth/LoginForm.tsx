@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm } from '../../modules/authForm';
+import { changeField, initializeForm } from '../../modules/authAsync/reducer';
 import { authLoginAction } from '../../modules/authAsync/actions';
 import AuthForm from '../../components/auth/AuthForm';
 import { RootState } from '../../modules';
@@ -11,11 +11,10 @@ export default withRouter(function LoginForm({ history }): ReactElement {
 	const [error, setError] = useState<null | string>(null);
 	const dispatch = useDispatch();
 	const { form, auth, user } = useSelector((state: RootState) => ({
-		form: state.authForm.login,
-		auth: state.authLogin.auth,
-		user: state.user.userProfile,
+		form: state.auth.login,
+		auth: state.auth.auth,
+		user: state.userAsync.userProfile,
 	}));
-	console.log(form, auth, user);
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, name } = e.target;
@@ -26,11 +25,12 @@ export default withRouter(function LoginForm({ history }): ReactElement {
 		e.preventDefault();
 		const { username, password } = form;
 		dispatch(authLoginAction.request({ username, password }));
+		dispatch(initializeForm('login'));
 	};
 
 	useEffect(() => {
 		dispatch(initializeForm('login'));
-	}, [dispatch]);
+	}, [dispatch, auth]);
 
 	useEffect(() => {
 		if (auth.error) {
@@ -47,6 +47,11 @@ export default withRouter(function LoginForm({ history }): ReactElement {
 	useEffect(() => {
 		if (user.data) {
 			history.push('/');
+			try {
+				localStorage.setItem('user', JSON.stringify(user.data));
+			} catch (e) {
+				console.log('localStorage not working.');
+			}
 		}
 	}, [history, user]);
 

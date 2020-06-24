@@ -24,3 +24,8 @@ export async function check<UserInfo>() {
 	const response = await client.get<UserInfo>('/api/auth/check');
 	return response.data;
 }
+
+export async function logout() {
+	const response = await client.post('/api/auth/logout');
+	return response;
+}

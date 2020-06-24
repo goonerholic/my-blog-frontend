@@ -44,28 +44,21 @@ export function createAsyncReducer<
 	AC extends AnyAsyncActionCreator,
 	K extends keyof S
 >(asyncActionCreator: AC, key: K) {
-	return (state: S, action: AnyAction) => {
-		const [request, success, failure] = transformToArray(
-			asyncActionCreator,
-		).map(getType);
-		switch (action.type) {
-			case request:
-				return {
-					...state,
-					[key]: asyncState.load(),
-				};
-			case success:
-				return {
-					...state,
-					[key]: asyncState.success(action.payload),
-				};
-			case failure:
-				return {
-					...state,
-					[key]: asyncState.error(action.payload),
-				};
-			default:
-				return state;
-		}
+	const [request, success, failure] = transformToArray(
+		asyncActionCreator,
+	).map(getType);
+	return {
+		[request]: (state: S, action: AnyAction) => ({
+			...state,
+			[key]: asyncState.load(),
+		}),
+		[success]: (state: S, action: AnyAction) => ({
+			...state,
+			[key]: asyncState.success(action.payload),
+		}),
+		[failure]: (state: S, action: AnyAction) => ({
+			...state,
+			[key]: asyncState.error(action.payload),
+		}),
 	};
 }

@@ -1,16 +1,13 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import authForm from './authForm';
-import { authRegister, authLogin } from './authAsync/reducer';
-import user from './userAsync';
+import auth from './authAsync/reducer';
+import userAsync from './userAsync';
 import { authSaga } from './authAsync/sagas';
 import { userSaga } from './userAsync';
 
 const rootReducer = combineReducers({
-	authForm,
-	authRegister,
-	authLogin,
-	user,
+	auth,
+	userAsync,
 });
 
 export default rootReducer;

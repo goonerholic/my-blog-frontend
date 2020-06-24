@@ -1,7 +1,12 @@
 import React, { ReactElement } from 'react';
+import Header from './../components/common/Header';
 
 interface Props {}
 
 export default function PostListPage({}: Props): ReactElement {
-	return <div>포스트 리스트</div>;
+	return (
+		<div>
+			<Header />
+		</div>
+	);
 }

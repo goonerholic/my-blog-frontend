@@ -1,21 +1,20 @@
 import { UserInfo } from '../../lib/api/auth';
-import { authRegisterAction, authLoginAction } from './actions';
-import { createReducer, ActionType, createAction } from 'typesafe-actions';
+import {
+	authRegisterAction,
+	authLoginAction,
+	CHANGE_FIELD,
+	INITIALIZE_FORM,
+	initializeForm,
+	changeField,
+} from './actions';
+import { createReducer, ActionType } from 'typesafe-actions';
 import {
 	createAsyncReducer,
 	asyncState,
 	AsyncState,
 } from '../../lib/reducerUtils';
 
-// types
-type FormType = 'register' | 'login';
-
-interface ChangeFieldInput {
-	form: FormType;
-	key: string;
-	value: string;
-}
-
+// type declaration
 interface AuthState {
 	register: {
 		username: string;
@@ -29,21 +28,7 @@ interface AuthState {
 	auth: AsyncState<UserInfo, Error>;
 }
 
-//actions types
-const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
-
-//action creators
-export const changeField = createAction(
-	CHANGE_FIELD,
-	({ form, key, value }: ChangeFieldInput) => ({ form, key, value }),
-)();
-
-export const initializeForm = createAction(
-	INITIALIZE_FORM,
-	(form: FormType) => form,
-)();
-
+// initial state
 const initialState: AuthState = {
 	register: {
 		username: '',
@@ -57,6 +42,7 @@ const initialState: AuthState = {
 	auth: asyncState.initial(),
 };
 
+// reducer
 const auth = createReducer<AuthState>(initialState, {
 	...createAsyncReducer(authRegisterAction, 'auth'),
 	...createAsyncReducer(authLoginAction, 'auth'),

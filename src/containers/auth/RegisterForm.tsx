@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm } from '../../modules/authAsync/reducer';
+import { changeField, initializeForm } from '../../modules/authAsync/actions';
 import AuthForm from '../../components/auth/AuthForm';
 import { RootState } from '../../modules';
 import { authRegisterAction } from '../../modules/authAsync/actions';
@@ -19,7 +19,6 @@ export default withRouter(function RegisterForm({ history }): ReactElement {
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, name } = e.target;
 		dispatch(changeField({ form: 'register', key: name, value }));
-		dispatch(initializeForm('register'));
 	};
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

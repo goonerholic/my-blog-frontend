@@ -4,11 +4,20 @@ import { AxiosError } from 'axios';
 import * as authAPI from '../lib/api/auth';
 import createAsyncSaga from '../lib/createRequestSaga';
 import { takeLatest, call } from 'redux-saga/effects';
-import { createReducer, ActionType } from 'typesafe-actions';
+import { createReducer } from 'typesafe-actions';
 import { asyncState, AsyncState } from '../lib/reducerUtils';
+import { createAsyncReducer } from '../lib/reducerUtils';
 
+// type declaration
+type UserState = {
+	userProfile: AsyncState<UserInfo, Error>;
+	checkError: null;
+};
+
+// prefix
 const prefix = 'user';
 
+// action types
 const CHECK = `${prefix}/CHECK`;
 const CHECK_SUCCESS = `${prefix}/CHECK_SUCCESS`;
 const CHECK_FAILURE = `${prefix}/CHECK_FAILURE`;
@@ -16,15 +25,19 @@ const TEMP_SET_USER = `${prefix}/TEMP_SET_USER`;
 
 const LOGOUT = `${prefix}/LOGOUT`;
 
+// actions
 export const tempSetUser = createAction(TEMP_SET_USER, (user) => user)();
+export const logout = createAction(LOGOUT)();
+
 export const userCheckAction = createAsyncAction(
 	CHECK,
 	CHECK_SUCCESS,
 	CHECK_FAILURE,
 )<'', any, AxiosError>();
-export const logout = createAction(LOGOUT)();
 
+// sagas
 const userCheckSaga = createAsyncSaga(userCheckAction, authAPI.check);
+
 function checkFailureSaga() {
 	try {
 		localStorage.removeItem('user');
@@ -48,35 +61,15 @@ export function* userSaga() {
 	yield takeLatest(LOGOUT, logoutSaga);
 }
 
-type UserState = {
-	userProfile: AsyncState<UserInfo, Error>;
-	checkError: null;
-};
-
+// initial state
 const initialState: UserState = {
 	userProfile: asyncState.initial(),
 	checkError: null,
 };
 
+// reducer
 const userAsync = createReducer<UserState>(initialState, {
-	[CHECK]: (state) => ({
-		...state,
-		userProfile: asyncState.load(),
-	}),
-	[CHECK_SUCCESS]: (
-		state,
-		action: ActionType<typeof userCheckAction.success>,
-	) => ({
-		...state,
-		userProfile: asyncState.success(action.payload),
-	}),
-	[CHECK_FAILURE]: (
-		state,
-		action: ActionType<typeof userCheckAction.failure>,
-	) => ({
-		...state,
-		userProfile: asyncState.error(action.payload),
-	}),
+	...createAsyncReducer(userCheckAction, 'userProfile'),
 	[LOGOUT]: (state) => ({
 		...state,
 		userProfile: asyncState.initial(),
@@ -86,13 +79,5 @@ const userAsync = createReducer<UserState>(initialState, {
 		userProfile: asyncState.success(action.payload),
 	}),
 });
-// .handleAction(
-// 	transformToArray(userCheckAction),
-// 	createAsyncReducer(userCheckAction, 'userProfile'),
-// )
-// .handleAction(logout, (state) => ({
-// 	...state,
-// 	user: null,
-// }));
 
 export default userAsync;

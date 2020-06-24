@@ -1,0 +1,25 @@
+.TagBox {
+	//width: 100%;
+	padding-top: 2rem;
+
+	form {
+		border-radius: 4px;
+		overflow: hidden;
+		display: flex;
+		width: 256px;
+	}
+
+	.tag-list {
+		display: flex;
+		margin-top: 0.5rem;
+	}
+
+	.tag-item {
+		margin-right: 0.5rem;
+		cursor: pointer;
+	}
+
+	.tag-item:hover {
+		opacity: 0.5;
+	}
+}

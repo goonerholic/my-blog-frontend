@@ -1,12 +1,26 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import { TextInput } from 'react-materialize';
 import 'react-quill/dist/quill.snow.css';
 import './Editor.scss';
+import Quill from 'quill';
 
-interface Props {}
+interface ChangeFieldArgs {
+	key: string;
+	value: string;
+}
 
-export default function Editor({}: Props): ReactElement {
+interface Props {
+	title: string;
+	body: string;
+	onChangeField: (args: ChangeFieldArgs) => void;
+}
+
+export default function Editor({
+	title,
+	body,
+	onChangeField,
+}: Props): ReactElement {
 	const modules = {
 		toolbar: [
 			[{ header: '1' }, { header: '2' }],
@@ -15,17 +29,29 @@ export default function Editor({}: Props): ReactElement {
 			['blockquote', 'code-block', 'link', 'image'],
 		],
 	};
+
+	const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+		onChangeField({ key: 'title', value: e.target.value });
+	};
+
 	return (
-		<div className="Editor container">
+		<div className="Editor">
 			<TextInput
 				inputClassName="title-input"
 				placeholder="제목을 입력하세요"
+				onChange={onChangeTitle}
+				value={title}
 			/>
 			<div className="quill-wrapper">
 				<ReactQuill
 					theme="snow"
 					modules={modules}
 					placeholder="내용을 작성하세요"
+					onChange={(content, delta, source) => {
+						if (source === 'user') {
+							onChangeField({ key: 'body', value: content });
+						}
+					}}
 				/>
 			</div>
 		</div>

@@ -1,6 +1,11 @@
-import React, { ReactElement, useCallback, useState } from 'react';
-import { TextInput, Button } from 'react-materialize';
+import React, { ReactElement, useCallback, useState, useEffect } from 'react';
+import { Button } from 'react-materialize';
 import './TagBox.scss';
+
+interface TagBoxProps {
+	tags: string[];
+	onChangeTags: (nextTags: string[]) => void;
+}
 
 const TagItem = React.memo(
 	({ tag, onRemove }: { tag: string; onRemove: (tag: string) => void }) => (
@@ -19,13 +24,16 @@ const TagList = React.memo(
 	}) => (
 		<div className="tag-list">
 			{tags.map((tag) => (
-				<TagItem tag={tag} onRemove={onRemove} />
+				<TagItem key={tag} tag={tag} onRemove={onRemove} />
 			))}
 		</div>
 	),
 );
 
-export default function TagBox(): ReactElement {
+export default function TagBox({
+	tags,
+	onChangeTags,
+}: TagBoxProps): ReactElement {
 	const [input, setInput] = useState('');
 	const [localTags, setLocalTags] = useState([] as string[]);
 
@@ -33,16 +41,20 @@ export default function TagBox(): ReactElement {
 		(tag) => {
 			if (!tag) return;
 			if (localTags.includes(tag)) return;
-			setLocalTags([...localTags, tag]);
+			const nextTags = [...localTags, tag];
+			setLocalTags(nextTags);
+			onChangeTags(nextTags);
 		},
-		[localTags],
+		[localTags, onChangeTags],
 	);
 
 	const onRemove = useCallback(
 		(tag) => {
-			setLocalTags(localTags.filter((t) => t !== tag));
+			const nextTags = localTags.filter((t) => t !== tag);
+			setLocalTags(nextTags);
+			onChangeTags(nextTags);
 		},
-		[localTags],
+		[localTags, onChangeTags],
 	);
 
 	const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,17 +70,24 @@ export default function TagBox(): ReactElement {
 		[input, insertTag],
 	);
 
+	useEffect(() => {
+		setLocalTags(tags);
+	}, [tags]);
+
 	return (
-		<div className="TagBox container">
+		<div className="TagBox">
 			<h4>태그</h4>
 			<form onSubmit={onSubmit}>
-				<div className="row valign-wrapper">
-					<TextInput
+				<div className="row">
+					<input
+						className="col s8"
 						placeholder="태그를 입력하세요"
 						value={input}
 						onChange={onChange}
 					/>
-					<Button>추가</Button>
+					<div className="col s4">
+						<Button small>추가</Button>
+					</div>
 				</div>
 			</form>
 			<TagList tags={localTags} onRemove={onRemove} />

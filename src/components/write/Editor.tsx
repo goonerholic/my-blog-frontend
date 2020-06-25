@@ -1,9 +1,8 @@
-import React, { ReactElement, useEffect, useRef } from 'react';
+import React, { ReactElement } from 'react';
 import ReactQuill from 'react-quill';
 import { TextInput } from 'react-materialize';
 import 'react-quill/dist/quill.snow.css';
 import './Editor.scss';
-import Quill from 'quill';
 
 interface ChangeFieldArgs {
 	key: string;
@@ -16,11 +15,7 @@ interface Props {
 	onChangeField: (args: ChangeFieldArgs) => void;
 }
 
-export default function Editor({
-	title,
-	body,
-	onChangeField,
-}: Props): ReactElement {
+export default function Editor({ title, onChangeField }: Props): ReactElement {
 	const modules = {
 		toolbar: [
 			[{ header: '1' }, { header: '2' }],

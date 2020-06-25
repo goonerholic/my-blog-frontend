@@ -3,7 +3,7 @@ import {
 	createReducer,
 	createAsyncAction,
 } from 'typesafe-actions';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import createAsyncSaga from '../lib/createRequestSaga';
 import * as postsAPI from '../lib/api/posts';
 import { takeLatest } from 'redux-saga/effects';
@@ -26,7 +26,7 @@ interface WriteResponse extends WritePayload {
 }
 
 interface WriteState extends WritePayload {
-	post: AsyncState<WriteResponse, Error> | null;
+	post: AsyncState<WriteResponse, AxiosError> | null;
 }
 
 // prefix

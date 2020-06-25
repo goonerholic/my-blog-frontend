@@ -8,6 +8,7 @@ import {
 	changeField,
 } from './actions';
 import { createReducer, ActionType } from 'typesafe-actions';
+import { AxiosError } from 'axios';
 import {
 	createAsyncReducer,
 	asyncState,
@@ -25,7 +26,7 @@ interface AuthState {
 		username: string;
 		password: string;
 	};
-	auth: AsyncState<UserInfo, Error>;
+	auth: AsyncState<UserInfo, AxiosError>;
 }
 
 // initial state

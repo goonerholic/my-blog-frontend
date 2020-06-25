@@ -1,7 +1,12 @@
 import React, { ReactElement } from 'react';
+import HeaderContainer from './../containers/common/HeaderContainer';
+import PostViewerContainer from './../containers/post/PostViewerContainer';
 
-interface Props {}
-
-export default function PostPage({}: Props): ReactElement {
-	return <div>포스트 읽기</div>;
+export default function PostPage(): ReactElement {
+	return (
+		<div>
+			<HeaderContainer />
+			<PostViewerContainer />
+		</div>
+	);
 }

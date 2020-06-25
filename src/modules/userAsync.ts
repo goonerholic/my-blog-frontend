@@ -10,7 +10,7 @@ import { createAsyncReducer } from '../lib/reducerUtils';
 
 // type declaration
 type UserState = {
-	userProfile: AsyncState<UserInfo, Error>;
+	userProfile: AsyncState<UserInfo, AxiosError>;
 	checkError: null;
 };
 

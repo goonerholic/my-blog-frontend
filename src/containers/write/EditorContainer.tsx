@@ -4,8 +4,6 @@ import { RootState } from '../../modules/index';
 import { initialize, changeField } from '../../modules/write';
 import Editor from '../../components/write/Editor';
 
-interface Props {}
-
 export default function EditorContainer(): ReactElement {
 	const dispatch = useDispatch();
 	const { title, body } = useSelector(({ write }: RootState) => ({

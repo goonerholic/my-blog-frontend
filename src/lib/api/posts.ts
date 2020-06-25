@@ -23,3 +23,8 @@ export const writePost = async ({ title, body, tags }: WritePostArgs) => {
 	console.log(response);
 	return response.data;
 };
+
+export const readPost = async (id: string) => {
+	const response = await client.get(`/api/posts/${id}`);
+	return response.data;
+};

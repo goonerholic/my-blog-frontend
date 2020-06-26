@@ -3,6 +3,8 @@ import './PostViewer.scss';
 import { Post } from './../../modules/post';
 import { AsyncState } from '../../lib/reducerUtils';
 import { AxiosError } from 'axios';
+import SubInfo from '../common/SubInfo';
+import Tags from '../common/Tags';
 
 interface PostViewerWrapperProps {
 	children: any;
@@ -41,19 +43,19 @@ export default function PostViewer({ post }: Props): ReactElement {
 		<PostViewerWrapper>
 			<div className="post-head">
 				<h1>{title}</h1>
-				<div className="sub-info">
-					<span>
-						<b>{user.username}</b>
-					</span>
-					<span>{new Date(publishedDate).toLocaleDateString()}</span>
-				</div>
-				<div className="tags">
+				<SubInfo
+					username={user.username}
+					publishedDate={new Date(publishedDate)}
+					hasMarginTop
+				/>
+				<Tags tags={tags} />
+				{/* <div className="tags">
 					{tags.map((tag) => (
 						<div className="tag" key={tag}>
 							#{tag}
 						</div>
 					))}
-				</div>
+				</div> */}
 			</div>
 			<div
 				className="post-content"

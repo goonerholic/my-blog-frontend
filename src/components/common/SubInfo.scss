@@ -1,0 +1,15 @@
+.SubInfo {
+	color: #bdbdbd;
+	font-size: 1.25rem;
+	a {
+		color: inherit;
+	}
+	&.has-margin-top {
+		margin-top: 1rem;
+	}
+	span + span:before {
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+		content: '\B7';
+	}
+}

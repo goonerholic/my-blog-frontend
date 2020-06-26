@@ -1,0 +1,20 @@
+.Tags {
+	margin-top: 0.5rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+
+	.tag {
+		cursor: pointer;
+		color: #0097a7;
+		&:hover {
+			color: #00e5ff;
+		}
+	}
+
+	.tag + .tag {
+		margin-right: 0.5rem;
+		margin-left: 0.5rem;
+	}
+}

@@ -1,5 +1,5 @@
 import { createAsyncAction, createAction } from 'typesafe-actions';
-import { UserInfo } from '../lib/api/auth';
+import { AuthResponse } from '../lib/api/auth';
 import { AxiosError } from 'axios';
 import * as authAPI from '../lib/api/auth';
 import createAsyncSaga from '../lib/createRequestSaga';
@@ -10,7 +10,7 @@ import { createAsyncReducer } from '../lib/reducerUtils';
 
 // type declaration
 type UserState = {
-	userProfile: AsyncState<UserInfo, AxiosError>;
+	user: AsyncState<AuthResponse, AxiosError>;
 	checkError: null;
 };
 
@@ -33,7 +33,7 @@ export const userCheckAction = createAsyncAction(
 	CHECK,
 	CHECK_SUCCESS,
 	CHECK_FAILURE,
-)<'', any, AxiosError>();
+)<'', AuthResponse, AxiosError>();
 
 // sagas
 const userCheckSaga = createAsyncSaga(userCheckAction, authAPI.check);
@@ -63,21 +63,21 @@ export function* userSaga() {
 
 // initial state
 const initialState: UserState = {
-	userProfile: asyncState.initial(),
+	user: asyncState.initial(),
 	checkError: null,
 };
 
 // reducer
-const userAsync = createReducer<UserState>(initialState, {
-	...createAsyncReducer(userCheckAction, 'userProfile'),
+const user = createReducer<UserState>(initialState, {
+	...createAsyncReducer(userCheckAction, 'user'),
 	[LOGOUT]: (state) => ({
 		...state,
-		userProfile: asyncState.initial(),
+		user: asyncState.initial(),
 	}),
 	[TEMP_SET_USER]: (state, action) => ({
 		...state,
-		userProfile: asyncState.success(action.payload),
+		user: asyncState.success(action.payload),
 	}),
 });
 
-export default userAsync;
+export default user;

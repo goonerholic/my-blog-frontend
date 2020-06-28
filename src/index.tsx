@@ -9,8 +9,8 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer, { rootSaga } from './modules';
-import { tempSetUser } from './modules/userAsync';
-import { userCheckAction } from './modules/userAsync';
+import { tempSetUser } from './modules/user';
+import { userCheckAction } from './modules/user';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(

@@ -66,7 +66,7 @@ export default function AuthForm({
 					/>
 				)}
 				<ErrorMessage>{error}</ErrorMessage>
-				<Button node="button" waves="light">
+				<Button className="grey darken-3" node="button" waves="light">
 					{text}
 				</Button>
 			</form>

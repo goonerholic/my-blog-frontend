@@ -1,12 +1,8 @@
 import { createAsyncAction, createAction } from 'typesafe-actions';
 import { AxiosError } from 'axios';
+import { AuthArgs, AuthResponse } from '../../lib/api/auth';
 
 // interface, types
-type AuthInput = {
-	username: string;
-	password: string;
-};
-
 type FormType = 'register' | 'login';
 
 interface ChangeFieldInput {
@@ -47,10 +43,10 @@ export const authRegisterAction = createAsyncAction(
 	REGISTER,
 	REGISTER_SUCCESS,
 	REGISTER_FAILURE,
-)<AuthInput, any, AxiosError>();
+)<AuthArgs, AuthResponse, AxiosError>();
 
 export const authLoginAction = createAsyncAction(
 	LOGIN,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
-)<AuthInput, any, AxiosError>();
+)<AuthArgs, AuthResponse, AxiosError>();

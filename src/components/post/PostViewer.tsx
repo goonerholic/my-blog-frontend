@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import './PostViewer.scss';
-import { Post } from './../../modules/post';
+import { Post } from './../../lib/api/posts';
 import { AsyncState } from '../../lib/reducerUtils';
 import { AxiosError } from 'axios';
 import SubInfo from '../common/SubInfo';

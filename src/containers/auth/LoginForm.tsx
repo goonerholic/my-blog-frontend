@@ -4,16 +4,16 @@ import { changeField, initializeForm } from '../../modules/authAsync/actions';
 import { authLoginAction } from '../../modules/authAsync/actions';
 import AuthForm from '../../components/auth/AuthForm';
 import { RootState } from '../../modules';
-import { userCheckAction } from '../../modules/userAsync';
+import { userCheckAction } from '../../modules/user';
 import { withRouter } from 'react-router-dom';
 
 export default withRouter(function LoginForm({ history }): ReactElement {
 	const [error, setError] = useState<null | string>(null);
 	const dispatch = useDispatch();
-	const { form, auth, user } = useSelector((state: RootState) => ({
-		form: state.auth.login,
-		auth: state.auth.auth,
-		user: state.userAsync.userProfile,
+	const { form, auth, user } = useSelector(({ auth, user }: RootState) => ({
+		form: auth.login,
+		auth: auth.auth,
+		user: user.user,
 	}));
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

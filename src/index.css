@@ -7,6 +7,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	box-sizing: border-box;
 	min-height: 100%;
+	background-color: #fafafa;
 }
 
 #root {
@@ -18,7 +19,7 @@ html {
 }
 
 a {
-	color: inherit;
+	color: white;
 	text-decoration: none;
 }
 
@@ -33,4 +34,10 @@ code {
 
 .container {
 	max-width: 1024px !important;
+}
+
+.btn:hover,
+.btn-small:hover,
+.btn-large:hover {
+	filter: brightness(120%);
 }

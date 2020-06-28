@@ -1,4 +1,4 @@
-import { UserInfo } from '../../lib/api/auth';
+import { AuthResponse } from '../../lib/api/auth';
 import {
 	authRegisterAction,
 	authLoginAction,
@@ -26,7 +26,7 @@ interface AuthState {
 		username: string;
 		password: string;
 	};
-	auth: AsyncState<UserInfo, AxiosError>;
+	auth: AsyncState<AuthResponse, AxiosError>;
 }
 
 // initial state

@@ -1,12 +1,13 @@
 import client from './client';
+import qs from 'qs';
 
-interface WritePostArgs {
+export interface WritePostArgs {
 	title: string;
 	body: string;
 	tags: string[];
 }
 
-interface WriteResponse extends WritePostArgs {
+export interface WriteResponse extends WritePostArgs {
 	_id: string;
 	user: {
 		_id: string;
@@ -14,17 +15,40 @@ interface WriteResponse extends WritePostArgs {
 	};
 }
 
-export const writePost = async ({ title, body, tags }: WritePostArgs) => {
+export interface ListPostArgs {
+	page: string;
+	username: string;
+	tag: string;
+}
+
+export interface Post {
+	_id: string;
+	title: string;
+	body: string;
+	tags: string[];
+	user: {
+		_id: string;
+		username: string;
+	};
+	publishedDate: Date;
+}
+
+export async function writePost({ title, body, tags }: WritePostArgs) {
 	const response = await client.post<WriteResponse>('/api/posts', {
 		title,
 		body,
 		tags,
 	});
-	console.log(response);
 	return response.data;
-};
+}
 
-export const readPost = async (id: string) => {
-	const response = await client.get(`/api/posts/${id}`);
+export async function readPost(id: string) {
+	const response = await client.get<Post>(`/api/posts/${id}`);
 	return response.data;
-};
+}
+
+export async function listPost({ page, username, tag }: ListPostArgs) {
+	const queryString = qs.stringify({ page, username, tag });
+	const response = await client.get<Post[]>(`/api/posts?${queryString}`);
+	return response.data;
+}

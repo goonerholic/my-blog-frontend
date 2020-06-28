@@ -14,18 +14,22 @@ interface Props {
 export default function Header({ user, onLogout }: Props): ReactElement {
 	return (
 		<Navbar
-			className="Header cyan darken-4"
+			className="Header white lighten-3"
 			alignLinks="right"
 			brand={
-				<a className="brand-logo" href="/">
+				<a className="brand-logo black-text" href="/">
 					GOONERHOLIC
 				</a>
 			}
-			menuIcon={<Icon>menu</Icon>}
+			menuIcon={<Icon className="black-text">menu</Icon>}
 		>
-			{user ? <NavItem>{user.username}</NavItem> : ''}
+			{user ? (
+				<NavItem className="black-text">{user.username}</NavItem>
+			) : (
+				''
+			)}
 			<Link
-				className="btn waves-effect waves-light"
+				className="btn grey darken-3 waves-effect waves-light"
 				to={user ? '/' : '/login'}
 				onClick={user ? onLogout : undefined}
 			>

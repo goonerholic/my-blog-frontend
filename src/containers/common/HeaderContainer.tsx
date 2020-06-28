@@ -2,11 +2,11 @@ import React, { ReactElement } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../modules';
 import Header from '../../components/common/Header';
-import { logout } from '../../modules/userAsync';
+import { logout } from '../../modules/user';
 
 export default function HeaderContainer(): ReactElement {
-	const { user } = useSelector(({ userAsync }: RootState) => ({
-		user: userAsync.userProfile.data,
+	const { user } = useSelector(({ user }: RootState) => ({
+		user: user.user.data,
 	}));
 	const dispatch = useDispatch();
 	const onLogout = () => {

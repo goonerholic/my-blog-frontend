@@ -9,23 +9,10 @@ import * as postsAPI from '../lib/api/posts';
 import { takeLatest } from 'redux-saga/effects';
 import { AsyncState } from '../lib/reducerUtils';
 import { createAsyncReducer } from '../lib/reducerUtils';
+import { WritePostArgs, WriteResponse } from '../lib/api/posts';
 
 // type declaration
-interface WritePayload {
-	title: string;
-	body: string;
-	tags: string[];
-}
-
-interface WriteResponse extends WritePayload {
-	_id: string;
-	user: {
-		_id: string;
-		username: string;
-	};
-}
-
-interface WriteState extends WritePayload {
+interface WriteState extends WritePostArgs {
 	post: AsyncState<WriteResponse, AxiosError> | null;
 }
 
@@ -50,7 +37,7 @@ export const writePostAsync = createAsyncAction(
 	WRITE_POST,
 	WRITE_POST_SUCCESS,
 	WRITE_POST_FAILURE,
-)<WritePayload, any, AxiosError>();
+)<WritePostArgs, any, AxiosError>();
 
 // sagas
 const writePostSaga = createAsyncSaga(writePostAsync, postsAPI.writePost);
@@ -68,7 +55,7 @@ const initialState = {
 
 // reducer
 const write = createReducer<WriteState>(initialState, {
-	[INITIALIZE]: (state) => initialState,
+	[INITIALIZE]: () => initialState,
 	[CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
 		...state,
 		[key]: value,

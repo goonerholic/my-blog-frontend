@@ -15,7 +15,7 @@ export async function login(payload: AuthArgs) {
 		'/api/auth/login',
 		payload,
 	);
-	return response.data;
+	return response;
 }
 
 export async function register(payload: AuthArgs) {
@@ -23,12 +23,12 @@ export async function register(payload: AuthArgs) {
 		'/api/auth/register',
 		payload,
 	);
-	return response.data;
+	return response;
 }
 
 export async function check() {
 	const response = await client.get<AuthResponse>('/api/auth/check');
-	return response.data;
+	return response;
 }
 
 export async function logout() {

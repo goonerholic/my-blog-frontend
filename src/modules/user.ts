@@ -1,6 +1,6 @@
-import { createAsyncAction, createAction, getType } from 'typesafe-actions';
+import { createAsyncAction, createAction } from 'typesafe-actions';
 import { AuthResponse } from '../lib/api/auth';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import * as authAPI from '../lib/api/auth';
 import createAsyncSaga from '../lib/createAsyncSaga';
 import { takeLatest, call } from 'redux-saga/effects';
@@ -33,7 +33,7 @@ export const userCheckAction = createAsyncAction(
 	CHECK,
 	CHECK_SUCCESS,
 	CHECK_FAILURE,
-)<undefined, AuthResponse, AxiosError>();
+)<'', [AuthResponse, AxiosResponse<AuthResponse>], AxiosError>();
 
 // sagas
 const userCheckSaga = createAsyncSaga(userCheckAction, authAPI.check);

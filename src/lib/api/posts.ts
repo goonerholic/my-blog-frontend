@@ -21,11 +21,8 @@ export interface ListPostArgs {
 	tag: string;
 }
 
-export interface Post {
+export interface Post extends WritePostArgs {
 	_id: string;
-	title: string;
-	body: string;
-	tags: string[];
 	user: {
 		_id: string;
 		username: string;
@@ -34,7 +31,7 @@ export interface Post {
 }
 
 export async function writePost({ title, body, tags }: WritePostArgs) {
-	const response = await client.post<WriteResponse>('/api/posts', {
+	const response = await client.post<Post>('/api/posts', {
 		title,
 		body,
 		tags,

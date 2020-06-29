@@ -1,5 +1,5 @@
 import { createAsyncAction, createAction } from 'typesafe-actions';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { AuthArgs, AuthResponse } from '../../lib/api/auth';
 
 // interface, types
@@ -43,10 +43,10 @@ export const authRegisterAction = createAsyncAction(
 	REGISTER,
 	REGISTER_SUCCESS,
 	REGISTER_FAILURE,
-)<AuthArgs, [AuthResponse, undefined], AxiosError>();
+)<AuthArgs, [AuthResponse, AxiosResponse<AuthResponse>], AxiosError>();
 
 export const authLoginAction = createAsyncAction(
 	LOGIN,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
-)<AuthArgs, [AuthResponse, undefined], AxiosError>();
+)<AuthArgs, [AuthResponse, AxiosResponse<AuthResponse>], AxiosError>();

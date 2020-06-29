@@ -1,5 +1,5 @@
 import { createAsyncAction, createReducer } from 'typesafe-actions';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import createAsyncSaga from '../lib/createAsyncSaga';
 import * as postsAPI from '../lib/api/posts';
 import { ListPostArgs, Post } from '../lib/api/posts';
@@ -24,7 +24,7 @@ export const listPostsActions = createAsyncAction(
 	LIST_POSTS,
 	LIST_POSTS_SUCCESS,
 	LIST_POSTS_FAILURE,
-)<ListPostArgs, [Post[], any], AxiosError>();
+)<ListPostArgs, [Post[], AxiosResponse<Post[]>], AxiosError>();
 
 // sagas
 const listPostsSaga = createAsyncSaga(listPostsActions, postsAPI.listPost);

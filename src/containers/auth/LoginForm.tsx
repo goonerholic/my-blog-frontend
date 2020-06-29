@@ -40,7 +40,7 @@ export default withRouter(function LoginForm({ history }): ReactElement {
 		}
 		if (auth.data) {
 			console.log('로그인 성공');
-			dispatch(userCheckAction.request());
+			dispatch(userCheckAction.request(''));
 		}
 	}, [auth, dispatch]);
 

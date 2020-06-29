@@ -3,12 +3,14 @@ import {
 	createAction,
 	createReducer,
 } from 'typesafe-actions';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import createAsyncSaga from '../lib/createAsyncSaga';
 import * as postsAPI from '../lib/api/posts';
 import { Post } from '../lib/api/posts';
 import { takeLatest } from 'redux-saga/effects';
 import { createAsyncReducer, AsyncState } from '../lib/reducerUtils';
+
+// type declaration
 export interface PostState {
 	post: AsyncState<Post, AxiosError> | null;
 }
@@ -28,7 +30,7 @@ export const postAsyncActions = createAsyncAction(
 	READ_POST,
 	READ_POST_SUCCESS,
 	READ_POST_FAILURE,
-)<string, Post, AxiosError>();
+)<string, [Post, AxiosResponse<Post>], AxiosError>();
 
 export const unloadPost = createAction(UNLOAD_POST)();
 

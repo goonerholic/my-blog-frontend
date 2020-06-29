@@ -24,7 +24,7 @@ function loadUser() {
 		if (!user) return;
 
 		store.dispatch(tempSetUser(JSON.parse(user)));
-		store.dispatch(userCheckAction.request());
+		store.dispatch(userCheckAction.request(''));
 	} catch (e) {
 		console.log('localStorage not working.');
 	}

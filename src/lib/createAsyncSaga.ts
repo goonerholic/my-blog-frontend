@@ -1,14 +1,10 @@
 import { call, put } from 'redux-saga/effects';
-import {
-	AsyncActionCreatorBuilder,
-	PayloadAction,
-	PayloadMetaAction,
-} from 'typesafe-actions';
-import { AxiosResponse, AxiosError } from 'axios';
+import { AsyncActionCreatorBuilder, PayloadAction } from 'typesafe-actions';
+import { AxiosResponse } from 'axios';
 
 type PromiseCreatorFunction<P, T> =
-	| ((payload: P) => Promise<T>)
-	| (() => Promise<T>);
+	| ((payload: P) => Promise<AxiosResponse<T>>)
+	| (() => Promise<AxiosResponse<T>>);
 
 function isPayloadAction<P>(action: any): action is PayloadAction<string, P> {
 	return action.payload !== undefined;

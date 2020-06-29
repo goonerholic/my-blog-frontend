@@ -1,10 +1,11 @@
 import { AsyncActionCreatorBuilder, getType } from 'typesafe-actions';
-import { AnyAction } from 'redux';
+import { AxiosError } from 'axios';
 
-export type AsyncState<T, E = any> = {
+export type AsyncState<T, M, E = any> = {
 	data: T | null;
 	loading: boolean;
 	error: E | null;
+	meta?: M;
 };
 
 export const asyncState = {
@@ -18,10 +19,11 @@ export const asyncState = {
 		data: data || null,
 		error: null,
 	}),
-	success: <T, E = any>(data: T): AsyncState<T, E> => ({
+	success: <T, M, E = any>(data: T, meta: M): AsyncState<T, M, E> => ({
 		loading: false,
 		data,
 		error: null,
+		meta,
 	}),
 	error: <T, E>(error: E): AsyncState<T, E> => ({
 		loading: false,
@@ -30,7 +32,11 @@ export const asyncState = {
 	}),
 };
 
-type AnyAsyncActionCreator = AsyncActionCreatorBuilder<any, any, any>;
+type AnyAsyncActionCreator = AsyncActionCreatorBuilder<
+	[string, [any, undefined]],
+	[string, [any, any]],
+	[string, [AxiosError, undefined]]
+>;
 
 export function transformToArray<AC extends AnyAsyncActionCreator>(
 	asyncActionCreator: AC,
@@ -43,15 +49,12 @@ export function createAsyncReducer<
 	S,
 	AC extends AnyAsyncActionCreator,
 	K extends keyof S
->(asyncActionCreator: any, key: K) {
+>(asyncActionCreator: AC, key: K) {
 	const [request, success, failure] = transformToArray(
 		asyncActionCreator,
 	).map(getType);
 	return {
-		[request]: (
-			state: S,
-			action: ReturnType<typeof asyncActionCreator.request>,
-		) => ({
+		[request]: (state: S) => ({
 			...state,
 			[key]: asyncState.load(),
 		}),
@@ -60,7 +63,7 @@ export function createAsyncReducer<
 			action: ReturnType<typeof asyncActionCreator.success>,
 		) => ({
 			...state,
-			[key]: asyncState.success(action.payload),
+			[key]: asyncState.success(action.payload, action.meta),
 		}),
 		[failure]: (
 			state: S,

@@ -3,13 +3,14 @@ import {
 	createReducer,
 	createAsyncAction,
 } from 'typesafe-actions';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import createAsyncSaga from '../lib/createAsyncSaga';
 import * as postsAPI from '../lib/api/posts';
 import { takeLatest } from 'redux-saga/effects';
 import { AsyncState } from '../lib/reducerUtils';
 import { createAsyncReducer } from '../lib/reducerUtils';
 import { WritePostArgs, WriteResponse } from '../lib/api/posts';
+import { Post } from '../lib/api/posts';
 
 // type declaration
 interface WriteState extends WritePostArgs {
@@ -37,7 +38,7 @@ export const writePostAsync = createAsyncAction(
 	WRITE_POST,
 	WRITE_POST_SUCCESS,
 	WRITE_POST_FAILURE,
-)<WritePostArgs, any, AxiosError>();
+)<WritePostArgs, [Post, AxiosResponse<Post>], AxiosError>();
 
 // sagas
 const writePostSaga = createAsyncSaga(writePostAsync, postsAPI.writePost);

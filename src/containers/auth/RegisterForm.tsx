@@ -46,7 +46,7 @@ export default withRouter(function RegisterForm({ history }): ReactElement {
 		if (auth.data) {
 			console.log('회원가입 성공');
 			console.log(auth.data);
-			dispatch(userCheckAction.request());
+			dispatch(userCheckAction.request(''));
 		}
 	}, [dispatch, auth]);
 

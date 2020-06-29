@@ -39,16 +39,16 @@ export async function writePost({ title, body, tags }: WritePostArgs) {
 		body,
 		tags,
 	});
-	return response.data;
+	return response;
 }
 
 export async function readPost(id: string) {
 	const response = await client.get<Post>(`/api/posts/${id}`);
-	return response.data;
+	return response;
 }
 
 export async function listPost({ page, username, tag }: ListPostArgs) {
 	const queryString = qs.stringify({ page, username, tag });
 	const response = await client.get<Post[]>(`/api/posts?${queryString}`);
-	return response.data;
+	return response;
 }

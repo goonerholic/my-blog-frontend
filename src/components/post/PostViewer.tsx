@@ -49,13 +49,6 @@ export default function PostViewer({ post }: Props): ReactElement {
 					hasMarginTop
 				/>
 				<Tags tags={tags} />
-				{/* <div className="tags">
-					{tags.map((tag) => (
-						<div className="tag" key={tag}>
-							#{tag}
-						</div>
-					))}
-				</div> */}
 			</div>
 			<div
 				className="post-content"

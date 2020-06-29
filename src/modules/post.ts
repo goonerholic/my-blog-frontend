@@ -4,7 +4,7 @@ import {
 	createReducer,
 } from 'typesafe-actions';
 import { AxiosError } from 'axios';
-import createAsyncSaga from './../lib/createRequestSaga';
+import createAsyncSaga from '../lib/createAsyncSaga';
 import * as postsAPI from '../lib/api/posts';
 import { Post } from '../lib/api/posts';
 import { takeLatest } from 'redux-saga/effects';

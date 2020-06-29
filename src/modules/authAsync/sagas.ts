@@ -5,7 +5,7 @@ import {
 	LOGIN,
 } from './actions';
 import * as authAPI from '../../lib/api/auth';
-import createAsyncSaga from '../../lib/createRequestSaga';
+import createAsyncSaga from '../../lib/createAsyncSaga';
 import { takeLatest, all } from 'redux-saga/effects';
 
 const authRegisterSaga = createAsyncSaga(authRegisterAction, authAPI.register);

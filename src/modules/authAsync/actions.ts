@@ -43,10 +43,10 @@ export const authRegisterAction = createAsyncAction(
 	REGISTER,
 	REGISTER_SUCCESS,
 	REGISTER_FAILURE,
-)<AuthArgs, AuthResponse, AxiosError>();
+)<AuthArgs, [AuthResponse, undefined], AxiosError>();
 
 export const authLoginAction = createAsyncAction(
 	LOGIN,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
-)<AuthArgs, AuthResponse, AxiosError>();
+)<AuthArgs, [AuthResponse, undefined], AxiosError>();

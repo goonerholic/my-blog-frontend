@@ -1,8 +1,8 @@
-import { createAsyncAction, createAction } from 'typesafe-actions';
+import { createAsyncAction, createAction, getType } from 'typesafe-actions';
 import { AuthResponse } from '../lib/api/auth';
 import { AxiosError } from 'axios';
 import * as authAPI from '../lib/api/auth';
-import createAsyncSaga from '../lib/createRequestSaga';
+import createAsyncSaga from '../lib/createAsyncSaga';
 import { takeLatest, call } from 'redux-saga/effects';
 import { createReducer } from 'typesafe-actions';
 import { asyncState, AsyncState } from '../lib/reducerUtils';
@@ -33,7 +33,7 @@ export const userCheckAction = createAsyncAction(
 	CHECK,
 	CHECK_SUCCESS,
 	CHECK_FAILURE,
-)<'', AuthResponse, AxiosError>();
+)<undefined, AuthResponse, AxiosError>();
 
 // sagas
 const userCheckSaga = createAsyncSaga(userCheckAction, authAPI.check);
@@ -66,7 +66,6 @@ const initialState: UserState = {
 	user: asyncState.initial(),
 	checkError: null,
 };
-
 // reducer
 const user = createReducer<UserState>(initialState, {
 	...createAsyncReducer(userCheckAction, 'user'),

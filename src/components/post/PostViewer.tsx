@@ -12,13 +12,17 @@ interface PostViewerWrapperProps {
 
 interface Props {
 	post: AsyncState<Post, AxiosError> | null;
+	actionButtons: ReactElement | false;
 }
 
 function PostViewerWrapper({ children }: PostViewerWrapperProps): ReactElement {
 	return <div className="PostViewer container">{children}</div>;
 }
 
-export default function PostViewer({ post }: Props): ReactElement {
+export default function PostViewer({
+	post,
+	actionButtons,
+}: Props): ReactElement {
 	// error handling
 	if (post && post.error) {
 		const { error } = post;
@@ -49,6 +53,7 @@ export default function PostViewer({ post }: Props): ReactElement {
 				/>
 				<Tags tags={tags} />
 			</div>
+			{actionButtons}
 			<div
 				className="post-content"
 				dangerouslySetInnerHTML={{ __html: body }}

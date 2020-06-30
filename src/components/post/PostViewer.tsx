@@ -52,7 +52,7 @@ export default function PostViewer({
 	return (
 		<PostViewerWrapper>
 			<div className="post-head">
-				<h1>{title}</h1>
+				<h2>{title}</h2>
 				<SubInfo
 					username={user.username}
 					publishedDate={new Date(publishedDate)}

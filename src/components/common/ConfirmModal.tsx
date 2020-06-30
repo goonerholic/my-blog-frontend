@@ -6,18 +6,14 @@ interface Props {
 	title: string;
 	description: string;
 	confirmText: string;
-	cancelText: string;
-	onConfirm: () => void;
 	toggleModalState: () => void;
 }
 
-export default function AskModal({
+export default function ConfirmModal({
 	isActive,
 	title,
 	description,
 	confirmText,
-	cancelText,
-	onConfirm,
 	toggleModalState,
 }: Props): ReactElement {
 	return (
@@ -28,18 +24,9 @@ export default function AskModal({
 					modal="confirm"
 					node="button"
 					waves="light"
-					onClick={onConfirm}
-				>
-					{confirmText}
-				</Button>,
-				<Button
-					flat
-					modal="close"
-					node="button"
-					waves="light"
 					onClick={toggleModalState}
 				>
-					{cancelText}
+					{confirmText}
 				</Button>,
 			]}
 			open={isActive}

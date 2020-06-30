@@ -52,3 +52,9 @@
 		font-size: 1.3125rem;
 	}
 }
+
+@media only screen and (max-width: 768px) {
+	.PostViewer .post-head h2 {
+		font-size: 2.4rem;
+	}
+}

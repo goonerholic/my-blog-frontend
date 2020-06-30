@@ -47,6 +47,9 @@ export default withRouter(function WriteActionButtonsContainer({
 			onPublish={onPublish}
 			onCancel={onCancel}
 			isEdit={!!originalPostId}
+			title={title}
+			body={body}
+			tags={tags}
 		/>
 	);
 });

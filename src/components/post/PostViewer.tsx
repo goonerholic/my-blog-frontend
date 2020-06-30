@@ -37,7 +37,6 @@ export default function PostViewer({ post }: Props): ReactElement {
 		return <PostViewerWrapper>로딩중...</PostViewerWrapper>;
 	}
 
-	console.log(post.data);
 	const { title, body, user, publishedDate, tags } = post.data as Post;
 	return (
 		<PostViewerWrapper>

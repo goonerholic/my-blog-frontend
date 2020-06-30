@@ -1,11 +1,11 @@
 import { AsyncActionCreatorBuilder, getType } from 'typesafe-actions';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
-export type AsyncState<T, M, E = any> = {
+export type AsyncState<T, E = any> = {
 	data: T | null;
 	loading: boolean;
 	error: E | null;
-	meta?: M;
+	lastPage?: number;
 };
 
 export const asyncState = {
@@ -19,11 +19,11 @@ export const asyncState = {
 		data: data || null,
 		error: null,
 	}),
-	success: <T, M, E = any>(data: T, meta: M): AsyncState<T, M, E> => ({
+	success: <T, E = any>(data: T, meta?: AxiosResponse): AsyncState<T, E> => ({
 		loading: false,
 		data,
 		error: null,
-		meta,
+		lastPage: parseInt(meta?.headers['last-page'], 10),
 	}),
 	error: <T, E>(error: E): AsyncState<T, E> => ({
 		loading: false,
@@ -33,8 +33,8 @@ export const asyncState = {
 };
 
 type AnyAsyncActionCreator = AsyncActionCreatorBuilder<
-	[string, [any, undefined]],
-	[string, [any, any]],
+	[string, [any | undefined, undefined]],
+	[string, [any, AxiosResponse]],
 	[string, [AxiosError, undefined]]
 >;
 

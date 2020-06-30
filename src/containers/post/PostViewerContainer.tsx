@@ -14,8 +14,6 @@ export default withRouter(function PostViewerContainer({
 		post: post.post,
 	}));
 
-	console.log(typeof post?.data?.publishedDate);
-
 	useEffect(() => {
 		dispatch(postAsyncActions.request(postId));
 		return () => {

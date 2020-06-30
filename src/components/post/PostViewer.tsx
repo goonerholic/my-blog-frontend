@@ -5,6 +5,7 @@ import { AsyncState } from '../../lib/reducerUtils';
 import { AxiosError } from 'axios';
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
+import { Preloader } from 'react-materialize';
 
 interface PostViewerWrapperProps {
 	children: any;
@@ -12,13 +13,17 @@ interface PostViewerWrapperProps {
 
 interface Props {
 	post: AsyncState<Post, AxiosError> | null;
+	actionButtons: ReactElement | false;
 }
 
 function PostViewerWrapper({ children }: PostViewerWrapperProps): ReactElement {
 	return <div className="PostViewer container">{children}</div>;
 }
 
-export default function PostViewer({ post }: Props): ReactElement {
+export default function PostViewer({
+	post,
+	actionButtons,
+}: Props): ReactElement {
 	// error handling
 	if (post && post.error) {
 		const { error } = post;
@@ -34,10 +39,15 @@ export default function PostViewer({ post }: Props): ReactElement {
 
 	// on loading
 	if ((post && post.loading) || !post) {
-		return <PostViewerWrapper>로딩중...</PostViewerWrapper>;
+		return (
+			<PostViewerWrapper>
+				<div className="loaderWrapper">
+					<Preloader className="loader" active color="blue" />
+				</div>
+			</PostViewerWrapper>
+		);
 	}
 
-	console.log(post.data);
 	const { title, body, user, publishedDate, tags } = post.data as Post;
 	return (
 		<PostViewerWrapper>
@@ -50,6 +60,7 @@ export default function PostViewer({ post }: Props): ReactElement {
 				/>
 				<Tags tags={tags} />
 			</div>
+			{actionButtons}
 			<div
 				className="post-content"
 				dangerouslySetInnerHTML={{ __html: body }}

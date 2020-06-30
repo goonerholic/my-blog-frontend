@@ -10,11 +10,11 @@ function isPayloadAction<P>(action: any): action is PayloadAction<string, P> {
 	return action.payload !== undefined;
 }
 
-export default function createAsyncSaga<T1, P1, T2, P2, T3, P3>(
+export default function createAsyncSaga<P1, P2, P3>(
 	asyncActionCreator: AsyncActionCreatorBuilder<
-		[T1, [P1, undefined]],
-		[T2, [P2, AxiosResponse]],
-		[T3, [P3, undefined]]
+		[string, [P1, undefined]],
+		[string, [P2, AxiosResponse]],
+		[string, [P3, undefined]]
 	>,
 	promiseCreator: PromiseCreatorFunction<P1, P2>,
 ) {

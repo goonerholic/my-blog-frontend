@@ -4,17 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { postAsyncActions, unloadPost } from './../../modules/post';
 import PostViewer from '../../components/post/PostViewer';
+import PostActionButtons from '../../components/post/PostActionButtons';
+import { setOriginalPost } from '../../modules/write';
+import { removePost } from '../../lib/api/posts';
 
 export default withRouter(function PostViewerContainer({
 	match,
+	history,
 }): ReactElement {
 	const { postId } = match.params;
 	const dispatch = useDispatch();
-	const { post } = useSelector(({ post }: RootState) => ({
+	const { post, user } = useSelector(({ post, user }: RootState) => ({
 		post: post.post,
+		user: user.user,
 	}));
-
-	console.log(typeof post?.data?.publishedDate);
 
 	useEffect(() => {
 		dispatch(postAsyncActions.request(postId));
@@ -22,5 +25,31 @@ export default withRouter(function PostViewerContainer({
 			dispatch(unloadPost());
 		};
 	}, [dispatch, postId]);
-	return <PostViewer post={post} />;
+
+	const onEdit = () => {
+		dispatch(setOriginalPost(post?.data));
+		history.push('/write');
+	};
+
+	const onRemove = async () => {
+		try {
+			await removePost(postId);
+			history.push('/');
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const isOwnPost =
+		(user && user.data?._id) === (post && post.data?.user._id);
+	return (
+		<PostViewer
+			post={post}
+			actionButtons={
+				isOwnPost && (
+					<PostActionButtons onEdit={onEdit} onRemove={onRemove} />
+				)
+			}
+		/>
+	);
 });

@@ -1,0 +1,19 @@
+.Pagination {
+	width: 320px;
+	display: flex;
+	justify-content: center;
+
+	.pagination {
+		li {
+			margin: 0 0.2rem;
+		}
+
+		.left-btn,
+		.right-btn {
+			a {
+				padding: 0 0 !important;
+				height: inherit;
+			}
+		}
+	}
+}

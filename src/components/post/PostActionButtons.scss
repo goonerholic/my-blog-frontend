@@ -1,0 +1,32 @@
+$grey: grey;
+
+.PostActionButtons {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 2rem;
+	margin-top: 1rem;
+
+	button {
+		background: none;
+		padding: 0.25rem 0.5rem;
+		border-radius: 4px;
+		color: grey;
+		border: none;
+		outline: none;
+		font-size: 1rem;
+		cursor: pointer;
+
+		&:hover {
+			background: lighten($color: $grey, $amount: 2);
+			color: white;
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+	button + button {
+		margin-left: 0.25rem;
+	}
+}

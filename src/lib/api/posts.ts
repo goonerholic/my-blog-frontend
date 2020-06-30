@@ -7,6 +7,10 @@ export interface WritePostArgs {
 	tags: string[];
 }
 
+export interface UpdatePostArgs extends WritePostArgs {
+	_id: string;
+}
+
 export interface WriteResponse extends WritePostArgs {
 	_id: string;
 	user: {
@@ -48,4 +52,17 @@ export async function listPost({ page, username, tag }: ListPostArgs) {
 	const queryString = qs.stringify({ page, username, tag });
 	const response = await client.get<Post[]>(`/api/posts?${queryString}`);
 	return response;
+}
+
+export async function updatePost({ _id, title, body, tags }: UpdatePostArgs) {
+	const response = await client.patch(`/api/posts/${_id}`, {
+		title,
+		body,
+		tags,
+	});
+	return response;
+}
+
+export async function removePost(postId: string) {
+	return await client.delete(`/api/posts/${postId}`);
 }

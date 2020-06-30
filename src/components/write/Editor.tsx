@@ -15,7 +15,11 @@ interface Props {
 	onChangeField: (args: ChangeFieldArgs) => void;
 }
 
-export default function Editor({ title, onChangeField }: Props): ReactElement {
+export default function Editor({
+	title,
+	body,
+	onChangeField,
+}: Props): ReactElement {
 	const modules = {
 		toolbar: [
 			[{ header: '1' }, { header: '2' }],
@@ -47,6 +51,7 @@ export default function Editor({ title, onChangeField }: Props): ReactElement {
 							onChangeField({ key: 'body', value: content });
 						}
 					}}
+					value={body}
 				/>
 			</div>
 		</div>

@@ -62,3 +62,7 @@ export async function updatePost({ _id, title, body, tags }: UpdatePostArgs) {
 	});
 	return response;
 }
+
+export async function removePost(postId: string) {
+	return await client.delete(`/api/posts/${postId}`);
+}

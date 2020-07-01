@@ -61,6 +61,5 @@
 		"@types/react-router-dom": "^5.1.5",
 		"@types/redux-actions": "^2.6.1",
 		"@types/sanitize-html": "^1.23.3"
-	},
-	"proxy": "http://localhost:4000/"
+	}
 }

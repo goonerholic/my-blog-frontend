@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import sanitizeHtml from 'sanitize-html';
 import { Button } from 'react-materialize';
 import './WriteActionButtons.scss';
 import ConfirmModal from '../common/ConfirmModal';
@@ -24,7 +25,10 @@ export default function WriteActionButtons({
 		setModalState(!modalState);
 	};
 	const onClick = () => {
-		if (!title || !body) {
+		const trimmedBody = sanitizeHtml(body, {
+			allowedTags: [],
+		});
+		if (!title || !trimmedBody) {
 			toggleModal();
 			return;
 		}

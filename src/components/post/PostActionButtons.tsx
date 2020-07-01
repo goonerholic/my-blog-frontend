@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import AskModal from '../common/AskModal';
 import './PostActionButtons.scss';
 

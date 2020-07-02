@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
 import { Preloader } from 'react-materialize';
+import { Helmet } from 'react-helmet-async';
 
 interface PostViewerWrapperProps {
 	children: any;
@@ -51,6 +52,9 @@ export default function PostViewer({
 	const { title, body, user, publishedDate, tags } = post.data as Post;
 	return (
 		<PostViewerWrapper>
+			<Helmet>
+				<title>{title} - GOONERHOLIC</title>
+			</Helmet>
 			<div className="post-head">
 				<h2>{title}</h2>
 				<SubInfo

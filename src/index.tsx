@@ -11,6 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer, { rootSaga } from './modules';
 import { tempSetUser } from './modules/user';
 import { userCheckAction } from './modules/user';
+import { HelmetProvider } from 'react-helmet-async';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -36,9 +37,11 @@ loadUser();
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
-			<React.StrictMode>
-				<App />
-			</React.StrictMode>
+			<HelmetProvider>
+				<React.StrictMode>
+					<App />
+				</React.StrictMode>
+			</HelmetProvider>
 		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root'),

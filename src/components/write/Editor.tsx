@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback } from 'react';
+import '../../global';
 import ReactQuill from 'react-quill';
 import { TextInput } from 'react-materialize';
 import 'react-quill/dist/quill.snow.css';
@@ -15,6 +16,12 @@ interface Props {
 	onChangeField: (args: ChangeFieldArgs) => void;
 }
 
+const hljs = (window as any).hljs as HLJSApi;
+
+hljs.configure({
+	languages: ['javascript'],
+});
+
 export default function Editor({
 	title,
 	body,
@@ -27,6 +34,7 @@ export default function Editor({
 			[{ list: 'ordered' }, { list: 'bullet' }],
 			['blockquote', 'code-block', 'link', 'image'],
 		],
+		syntax: true,
 	};
 
 	const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +59,7 @@ export default function Editor({
 							onChangeField({ key: 'body', value: content });
 						}
 					}}
-					value={body}
+					defaultValue={body}
 				/>
 			</div>
 		</div>

@@ -42,7 +42,7 @@ export default function PostViewer({
 	if ((post && post.loading) || !post) {
 		return (
 			<PostViewerWrapper>
-				<div className="loaderWrapper">
+				<div className="PostViewerWrapper">
 					<Preloader className="loader" active color="blue" />
 				</div>
 			</PostViewerWrapper>

@@ -25,7 +25,7 @@ export default withRouter(function PostListContainer({
 	}, [dispatch, location.search, match.params]);
 	return (
 		<div>
-			<PostList posts={posts} showWriteButton={user} />
+			<PostList posts={posts} showWriteButton={user.data} />
 		</div>
 	);
 });

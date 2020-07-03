@@ -13,7 +13,7 @@ interface PostItemProps {
 }
 interface Props {
 	posts: AsyncState<Post[], AxiosError> | null;
-	showWriteButton: AsyncState<AuthResponse, AxiosError> | null;
+	showWriteButton: AuthResponse | null;
 }
 
 interface WrapperProps {
@@ -59,7 +59,7 @@ export default function PostList({
 	return (
 		<div className="PostList container">
 			<div className="write-post-button-wrapper">
-				{showWriteButton?.data && (
+				{showWriteButton && (
 					<Link
 						to="/write"
 						className="btn grey darken-3 waves-effect waves-light"

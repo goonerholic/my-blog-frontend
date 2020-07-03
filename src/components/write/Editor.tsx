@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react';
+import React, { ReactElement } from 'react';
 import '../../global';
 import ReactQuill from 'react-quill';
 import { TextInput } from 'react-materialize';
@@ -19,7 +19,7 @@ interface Props {
 const hljs = (window as any).hljs as HLJSApi;
 
 hljs.configure({
-	languages: ['javascript'],
+	languages: ['javascript', 'python'],
 });
 
 export default function Editor({
@@ -60,6 +60,7 @@ export default function Editor({
 						}
 					}}
 					defaultValue={body}
+					tabIndex={0}
 				/>
 			</div>
 		</div>

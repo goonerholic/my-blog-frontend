@@ -44,12 +44,14 @@ export default function AuthForm({
 			<h5>{text}</h5>
 			<form onSubmit={onSubmit}>
 				<TextInput
+					id="username"
 					name="username"
 					placeholder="ID"
 					onChange={onChange}
 					value={form.username}
 				/>
 				<TextInput
+					id="password"
 					name="password"
 					placeholder="PASSWORD"
 					type="password"
@@ -58,6 +60,7 @@ export default function AuthForm({
 				/>
 				{type === 'register' && (
 					<TextInput
+						id="passwordConfirm"
 						name="passwordConfirm"
 						placeholder="CONFIRM PASSWORD"
 						type="password"

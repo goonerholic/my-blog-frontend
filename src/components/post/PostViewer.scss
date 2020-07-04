@@ -57,7 +57,7 @@
 		.ql-syntax {
 			background-color: #000;
 			color: #fff;
-			overflow-x: scroll;
+			overflow: auto;
 			border-radius: 0.2rem;
 			padding: 0.8rem 0.8rem;
 		}
@@ -75,23 +75,46 @@
 			font-size: 1.6rem;
 		}
 
+		h1,
+		h2 {
+			margin-block-start: 1rem;
+			margin-block-end: 1rem;
+			font-weight: 700;
+		}
+
 		ol,
 		ul {
 			margin-block-start: 1rem;
+			margin-block-end: 1rem;
 			padding-inline-start: 20px;
 		}
 
 		ul {
 			li {
 				list-style-type: disc;
+				padding-left: 0;
+			}
+		}
+
+		ol {
+			li {
+				list-style-type: decimal;
+				padding-left: 0;
 			}
 		}
 
 		blockquote {
 			background-color: #f5f5f5;
+			border-left: 4px solid #ccc;
 			padding-top: 1rem;
 			padding-bottom: 1rem;
 			overflow-wrap: break-word;
+		}
+
+		p {
+			overflow-wrap: break-word;
+			margin: 0 0;
+			padding: 0 0;
 		}
 	}
 }

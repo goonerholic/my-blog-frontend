@@ -19,7 +19,7 @@ interface Props {
 const hljs = (window as any).hljs as HLJSApi;
 
 hljs.configure({
-	languages: ['javascript', 'python'],
+	languages: ['python', 'ts', 'js'],
 });
 
 export default function Editor({
@@ -35,6 +35,9 @@ export default function Editor({
 			['blockquote', 'code-block', 'link', 'image'],
 		],
 		syntax: true,
+		clipboard: {
+			matchVisual: false,
+		},
 	};
 
 	const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {

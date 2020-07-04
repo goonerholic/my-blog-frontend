@@ -1,13 +1,11 @@
 .Editor {
 	.ql-editor {
 		min-height: 480px;
-
 		font-size: 1.125rem;
 
 		.ql-syntax {
 			background-color: #000;
 			color: #fff;
-			overflow-x: scroll;
 			border-radius: 0.2rem;
 			padding: 0.8rem 0.8rem;
 		}
@@ -28,12 +26,24 @@
 		ol,
 		ul {
 			margin-block-start: 1rem;
+			margin-block-end: 1rem;
 			padding-inline-start: 20px;
+			li::before {
+				content: none;
+			}
 		}
 
 		ul {
 			li {
 				list-style-type: disc;
+				padding-left: 0;
+			}
+		}
+
+		ol {
+			li {
+				list-style-type: decimal;
+				padding-left: 0;
 			}
 		}
 
@@ -42,6 +52,14 @@
 			padding-top: 1rem;
 			padding-bottom: 1rem;
 			overflow-wrap: break-word;
+			margin-block-start: 1rem;
+			margin-block-end: 1rem;
+		}
+
+		p {
+			overflow-wrap: break-word;
+			margin: 0 0;
+			padding: 0 0;
 		}
 	}
 }

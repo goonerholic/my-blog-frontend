@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react';
 import '../../global';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import { TextInput } from 'react-materialize';
+import MarkdownShortcuts from 'quill-markdown-shortcuts';
+
 import 'react-quill/dist/quill.snow.css';
 import './Editor.scss';
 
@@ -43,6 +45,8 @@ export default function Editor({
 	const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		onChangeField({ key: 'title', value: e.target.value });
 	};
+
+	Quill.register('modules/markdownShortcuts', MarkdownShortcuts);
 
 	return (
 		<div className="Editor">

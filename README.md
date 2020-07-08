@@ -5,6 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 -   **Features**: Basic user athentication and CRUD for writing post.
 -   Most components are designed with 'materialize-css'
 
+(actual product: http://34.97.73.80)
+
 ## Included dependencies
 
 ### common

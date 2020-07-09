@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react';
 import '../../global';
 import ReactQuill, { Quill } from 'react-quill';
 import { TextInput } from 'react-materialize';
-import MarkdownShortcuts from 'quill-markdown-shortcuts';
 
 import 'react-quill/dist/quill.snow.css';
 import './Editor.scss';
+import MarkdownShortcuts from 'quill-markdown-shortcuts';
 
 interface ChangeFieldArgs {
 	key: string;
@@ -21,7 +21,7 @@ interface Props {
 const hljs = (window as any).hljs as HLJSApi;
 
 hljs.configure({
-	languages: ['python', 'ts', 'js'],
+	languages: ['python', 'ts', 'js', 'html', 'css'],
 });
 
 export default function Editor({
@@ -40,13 +40,14 @@ export default function Editor({
 		clipboard: {
 			matchVisual: false,
 		},
+		markdownShortcuts: {},
 	};
 
 	const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		onChangeField({ key: 'title', value: e.target.value });
 	};
 
-	Quill.register('modules/markdownShortcuts', MarkdownShortcuts);
+	Quill.register('modules/markdownShortcuts', MarkdownShortcuts, true);
 
 	return (
 		<div className="Editor">

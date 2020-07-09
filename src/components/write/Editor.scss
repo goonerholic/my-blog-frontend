@@ -7,6 +7,7 @@
 		.ql-syntax {
 			background-color: #000;
 			color: #fff;
+			overflow: auto;
 			border-radius: 0.2rem;
 			padding: 0.8rem 0.8rem;
 		}
@@ -22,6 +23,12 @@
 
 		h2 {
 			font-size: 1.6rem;
+		}
+
+		h1,
+		h2 {
+			margin-block-start: 1rem;
+			margin-block-end: 1rem;
 		}
 
 		ol,

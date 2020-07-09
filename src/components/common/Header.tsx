@@ -14,7 +14,7 @@ interface Props {
 export default function Header({ user, onLogout }: Props): ReactElement {
 	return (
 		<Navbar
-			className="Header white lighten-3"
+			className="Header white"
 			alignLinks="right"
 			brand={
 				<a className="brand-logo black-text" href="/">

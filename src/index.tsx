@@ -16,7 +16,9 @@ import { HelmetProvider } from 'react-helmet-async';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
 	rootReducer,
-	composeWithDevTools(applyMiddleware(sagaMiddleware)),
+	process.env.NODE_ENV === 'production'
+		? applyMiddleware(sagaMiddleware)
+		: composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
 function loadUser() {

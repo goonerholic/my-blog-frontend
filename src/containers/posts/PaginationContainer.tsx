@@ -16,6 +16,7 @@ export default withRouter(function PaginationContainer({
 	}));
 
 	if (!posts || posts.loading) return <div></div>;
+	if (posts && posts.error) return <div></div>;
 
 	const { tag, page = 1 } = qs.parse(location.search, {
 		ignoreQueryPrefix: true,

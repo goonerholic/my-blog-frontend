@@ -1,10 +1,10 @@
 .SubInfo {
-	color: #bdbdbd;
+	color: #686868;
 	a {
-		color: inherit;
-	}
-	&.has-margin-top {
-		margin-top: 1rem;
+		color: #686868;
+		&:hover {
+			color: #353535;
+		}
 	}
 	span + span:before {
 		padding-left: 0.5rem;

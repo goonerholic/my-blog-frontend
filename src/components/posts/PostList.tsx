@@ -28,21 +28,18 @@ function PostItem({ post }: PostItemProps): ReactElement {
 	const { _id, title, body, tags, publishedDate, user } = post;
 	return (
 		<div className="PostItem white black-text card hoverable">
-			<div className="card-content">
-				<h4>
-					<Link
-						className="black-text"
-						to={`/@${user.username}/${_id}`}
-					>
-						{title}
-					</Link>
-				</h4>
+			<Link className="black-text" to={`/@${user.username}/${_id}`}>
+				<div className="card-content">
+					<h5>{title}</h5>
+					<p className="truncate">{body}</p>
+				</div>
+			</Link>
+			<div className="sub-area">
 				<SubInfo
 					username={user.username}
 					publishedDate={new Date(publishedDate)}
 				/>
 				<Tags tags={tags} />
-				<p className="truncate">{body}</p>
 			</div>
 		</div>
 	);
@@ -53,11 +50,16 @@ export default function PostList({
 	showWriteButton,
 }: Props): ReactElement {
 	if (posts && posts.error) {
-		return <PostListWrapper>에러났어요...</PostListWrapper>;
+		return (
+			<PostListWrapper>
+				<h2>Error</h2>
+				<p>Something went wrong...</p>
+			</PostListWrapper>
+		);
 	}
 
 	return (
-		<div className="PostList container">
+		<PostListWrapper>
 			<div className="write-post-button-wrapper">
 				{showWriteButton && (
 					<Link
@@ -68,13 +70,12 @@ export default function PostList({
 					</Link>
 				)}
 			</div>
-			{posts?.data && (
-				<div>
-					{posts.data.map((post) => (
+			<div className="cards">
+				{posts?.data &&
+					posts.data.map((post) => (
 						<PostItem post={post} key={post._id} />
 					))}
-				</div>
-			)}
-		</div>
+			</div>
+		</PostListWrapper>
 	);
 }

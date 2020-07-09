@@ -7,19 +7,23 @@
 		margin-bottom: 3rem;
 	}
 
-	.PostItem {
-		&:first-child {
-			padding-top: 0;
-		}
-
-		.card-content {
-			h4 {
-				a:hover {
-					color: rgba(54, 54, 54, 0.8) !important;
+	.cards {
+		// display: flex;
+		// flex-direction: row;
+		// flex-wrap: wrap;
+		// justify-content: space-between;
+		.PostItem {
+			.card-content {
+				height: 180px;
+				p {
+					margin-top: 2rem;
 				}
 			}
-			p {
-				margin-top: 2rem;
+
+			.sub-area {
+				border-top: 1px solid #e4e4e4;
+				display: flex;
+				padding: 1rem 24px;
 			}
 		}
 	}

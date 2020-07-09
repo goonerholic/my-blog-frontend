@@ -57,12 +57,13 @@ export default function PostViewer({
 			</Helmet>
 			<div className="post-head">
 				<h2>{title}</h2>
-				<SubInfo
-					username={user.username}
-					publishedDate={new Date(publishedDate)}
-					hasMarginTop
-				/>
-				<Tags tags={tags} />
+				<div className="sub-area">
+					<SubInfo
+						username={user.username}
+						publishedDate={new Date(publishedDate)}
+					/>
+					<Tags tags={tags} />
+				</div>
 			</div>
 			{actionButtons}
 			<div

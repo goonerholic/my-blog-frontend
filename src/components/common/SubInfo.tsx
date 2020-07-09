@@ -14,7 +14,7 @@ export default function SubInfo({
 	hasMarginTop,
 }: Props): ReactElement {
 	return (
-		<div className={`SubInfo${hasMarginTop ? ' has-margin-top' : ''}`}>
+		<div className="SubInfo">
 			<span>
 				<b>
 					<Link to={`/@${username}`}>{username}</Link>

@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm } from '../../modules/authAsync/actions';
-import { authLoginAction } from '../../modules/authAsync/actions';
+import { changeField, initializeForm } from '../../modules/auth';
+import { authLoginAction } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { RootState } from '../../modules';
 import { userCheckAction } from '../../modules/user';

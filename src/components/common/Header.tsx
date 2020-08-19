@@ -18,7 +18,7 @@ export default function Header({ user, onLogout }: Props): ReactElement {
 			alignLinks="right"
 			brand={
 				<a className="brand-logo black-text" href="/">
-					GOONERHOLIC
+					보통인부
 				</a>
 			}
 			menuIcon={<Icon className="black-text">menu</Icon>}

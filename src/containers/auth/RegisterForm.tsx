@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm } from '../../modules/authAsync/actions';
+import { changeField, initializeForm } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { RootState } from '../../modules';
-import { authRegisterAction } from '../../modules/authAsync/actions';
+import { authRegisterAction } from '../../modules/auth';
 import { userCheckAction } from '../../modules/user';
 import { withRouter } from 'react-router-dom';
 

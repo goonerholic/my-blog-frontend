@@ -1,13 +1,12 @@
 import React, { ReactElement, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { writePost, updatePost } from '../../modules/write';
 import WriteActionButtons from '../../components/write/WriteActionButtons';
+import { useHistory } from 'react-router-dom';
 
-export default withRouter(function WriteActionButtonsContainer({
-	history,
-}): ReactElement {
+export default function WriteActionButtonsContainer({}): ReactElement {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const { title, body, tags, post, originalPostId } = useSelector(
 		({ write }: RootState) => ({
@@ -42,6 +41,7 @@ export default withRouter(function WriteActionButtonsContainer({
 			console.log(post.error);
 		}
 	}, [history, post]);
+
 	return (
 		<WriteActionButtons
 			onPublish={onPublish}
@@ -52,4 +52,4 @@ export default withRouter(function WriteActionButtonsContainer({
 			tags={tags}
 		/>
 	);
-});
+}

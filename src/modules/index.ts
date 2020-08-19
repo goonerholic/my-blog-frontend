@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import auth from './authAsync/reducer';
+import auth from './auth';
 import user from './user';
 import post, { postSaga } from './post';
 import write, { writeSaga } from './write';
 import posts, { postsSaga } from './posts';
-import { authSaga } from './authAsync/sagas';
+import { authSaga } from './auth';
 import { userSaga } from './user';
 
 const rootReducer = combineReducers({

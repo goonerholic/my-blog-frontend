@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { writePost, updatePost } from '../../modules/write';
 import WriteActionButtons from '../../components/write/WriteActionButtons';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-export default function WriteActionButtonsContainer({}): ReactElement {
-	const history = useHistory();
+export default withRouter(function WriteActionButtonsContainer({
+	history,
+}): ReactElement {
 	const dispatch = useDispatch();
 	const { title, body, tags, post, originalPostId } = useSelector(
 		({ write }: RootState) => ({
@@ -52,4 +53,4 @@ export default function WriteActionButtonsContainer({}): ReactElement {
 			tags={tags}
 		/>
 	);
-}
+});

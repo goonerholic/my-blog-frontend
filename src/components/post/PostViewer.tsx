@@ -53,7 +53,7 @@ export default function PostViewer({
 	return (
 		<PostViewerWrapper>
 			<Helmet>
-				<title>{title} - GOONERHOLIC</title>
+				<title>{title} - 보통인부</title>
 			</Helmet>
 			<div className="post-head">
 				<h2>{title}</h2>

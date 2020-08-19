@@ -25,8 +25,13 @@
 			font-size: 1.6rem;
 		}
 
+		h3 {
+			font-size: 1.2rem;
+		}
+
 		h1,
-		h2 {
+		h2,
+		h3 {
 			margin-block-start: 1rem;
 			margin-block-end: 1rem;
 		}
@@ -68,6 +73,12 @@
 			overflow-wrap: break-word;
 			margin: 0 0;
 			padding: 0 0;
+			line-height: 1.8;
+		}
+
+		img {
+			width: 100%;
+			height: auto;
 		}
 	}
 }

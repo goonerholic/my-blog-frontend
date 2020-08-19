@@ -8,7 +8,7 @@ export default function WritePage(): ReactElement {
 	return (
 		<div className="container">
 			<Helmet>
-				<title>Write Post - GOONERHOLIC</title>
+				<title>Write Post - 보통인부</title>
 			</Helmet>
 			<EditorContainer />
 			<TagBoxContainer />

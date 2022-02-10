@@ -17,7 +17,7 @@
 		"express": "^4.17.1",
 		"highlight.js": "^10.1.1",
 		"materialize-css": "^1.0.0-rc.2",
-		"node-sass": "^4.14.1",
+		"node-sass": "^7.0.0",
 		"qs": "^6.9.4",
 		"quill-markdown-shortcuts": "^0.0.10",
 		"react": "^16.13.1",
